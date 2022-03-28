@@ -1,0 +1,7 @@
+_target_: src.optim.loss.aam_softmax.AngularAdditiveMarginSoftMaxLoss
+
+#input_features: 768 # for first+cls pooled embeddings
+#output_features: 5994 # only on voxceleb2 dev
+
+margin: 0.2
+scale: 30

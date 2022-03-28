@@ -1,0 +1,34 @@
+# instantiate the x-vector network lightning module config object
+_target_: src.models.wav2vec2.Wav2vec2Config
+
+# pretrained weights of wav2vec model
+wav2vec_huggingface_id: "facebook/wav2vec2-base"
+
+# whether to use reset the pretrained weights
+# and start from a fresh initialization
+reset_weights: false
+
+# whether to freeze the feature encoder part
+# of the network for the whole training run
+completely_freeze_feature_extractor: true
+
+# initially freeze wav2vec model
+wav2vec_initially_frozen: false
+
+# number of steps before the wav2vec model is unfrozen
+# (if initially frozen at all)
+# if set to null, wav2vec will never be unfrozen
+num_frozen_steps: 10000
+
+# which type of statistical pooling to use
+stat_pooling_type: "first+cls"
+use_cosine_linear: true  # this assumes AAM softmax loss
+
+# optional explicit overwrite of embedding size and/or num speakers
+# (e.g if you need to load finetuned weights but want to experiment with another
+# pooling type in the evaluation or test on a dataset with different num speakers)
+explicit_stat_pool_embedding_size: null
+explicit_num_speakers: null
+
+# if enabled, gradient checkpointing slows down iteration speed but saves memory
+use_gradient_checkpointing: true

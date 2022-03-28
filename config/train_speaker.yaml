@@ -1,0 +1,73 @@
+defaults:
+  - _self_ 
+  - callbacks: speaker_default
+  - data: voxceleb2
+  - speaker/pipeline: mfcc_specaugment_chunked
+  - speaker/dataloader: speaker
+  - network: xvector
+  - network/regularisation: null
+  - optim/algo: adam
+  - optim/schedule: constant
+  - optim/loss: aam_softmax
+  - trainer: trainer
+
+# root directory with subfolders containing the canonical dataset(s)
+data_folder: ${oc.env:DATA_FOLDER}
+
+# directory for temporary storage
+temp_folder: ${oc.env:TEMP_FOLDER}
+
+# directory for slurm and hydra logs
+log_folder: ${oc.env:LOG_FOLDER}
+
+# random seed used by the experiment
+seed: 42133724
+
+# whether to fit model
+fit_model: True
+
+# whether to evaluate model
+eval_model: True
+
+# enroll training data for adaptive s-norm
+enroll_training_data: True
+
+# whether to try additional EER post-processing techniques
+post_process_scores: false
+
+# whether to load the weight of the networks from a checkpoint
+load_network_from_checkpoint: null
+
+# whether to log to wandb
+use_wandb: ${oc.decode:${oc.env:USE_WANDB}}
+
+# number of gpus to use
+gpus: 1
+
+# project name (useful for giving a name to log directories)
+project_name: general
+
+# experiment name
+# (:) indicates it needs to be resolved
+experiment_name: ${random_name:}
+
+# tag to add to the experiment dashboard for easy filtering
+# of certain experiment
+experiment_tag: ${now:%Y-%m-%d}
+
+# Optional extra tags for displaying additional variation
+tag: null
+
+# whether to disable all functionality which can leak
+# identity
+anonymous_mode: false
+
+# config variables for hydra
+hydra:
+  run:
+    # set root output directory
+    dir: ${log_folder}/w2v2-few-samples/run/${now:%Y-%m-%d_%H-%M-%S}/${experiment_name}
+  sweep:
+    # set root output directory
+    dir: ${log_folder}/w2v2-few-samples/sweep/${now:%Y-%m-%d_%H-%M-%S}
+    subdir: ${experiment_name}

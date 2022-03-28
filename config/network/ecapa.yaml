@@ -1,0 +1,8 @@
+# instantiate the x-vector network lightning module config object
+_target_: src.models.EcapaTdnnConfig
+
+# the dimensionality of the speaker embeddings
+num_embeddings: 192
+
+# the expected input mfcc's
+num_mels: ${speaker.pipeline.mfcc.n_mfcc}

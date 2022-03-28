@@ -1,0 +1,2 @@
+from .aam_softmax import AngularAdditiveMarginSoftMaxLoss
+from .cross_entropy import CrossEntropyLoss

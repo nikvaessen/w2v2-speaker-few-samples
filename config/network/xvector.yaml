@@ -1,0 +1,8 @@
+# instantiate the x-vector network lightning module config object
+_target_: src.models.XvectorConfig
+
+# the dimensionality of the speaker embeddings
+num_embeddings: 512
+
+# the expected input mfcc's
+num_mels: ${speaker.pipeline.mfcc.n_mfcc}

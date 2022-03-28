@@ -1,0 +1,12 @@
+# instantiate the config object
+_target_: src.data.loading_config.SpeakerDataLoaderConfig
+
+# settings for data loader
+train_batch_size: 32
+val_batch_size: ${speaker.dataloader.train_batch_size}
+test_batch_size: 1
+
+shuffle_queue_size: 128
+
+num_workers: 5
+pin_memory: true

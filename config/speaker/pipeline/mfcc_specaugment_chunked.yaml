@@ -1,0 +1,46 @@
+train_pipeline:
+  - selector_train
+  - mfcc
+  - specaugment
+  - normalizer
+
+val_pipeline:
+  - selector_val
+  - mfcc
+  - normalizer
+
+test_pipeline:
+  # assume batch size of 1 due to no selector (and therefore tensors have
+  # different dimensions and cannot be collated without padding
+  - mfcc
+  - normalizer
+
+selector_train:
+  _target_: src.data.pipeline.random_chunks.AudioChunkSelector
+  # one of 'start', 'end', 'random', 'random_contiguous', 'contiguous'
+  selection_strategy: random
+  desired_chunk_length_sec: 3
+
+selector_val:
+  _target_: src.data.pipeline.random_chunks.AudioChunkSelector
+  # one of 'start', 'end', 'random', 'random_contiguous'
+  selection_strategy: start
+  desired_chunk_length_sec: ${speaker.pipeline.selector_train.desired_chunk_length_sec}
+
+specaugment:
+  _target_: src.data.pipeline.augment.SpecAugment
+  min_num_time_masks: 5
+  max_num_time_masks: 10
+  min_num_freq_masks: 1
+  max_num_freq_masks: 3
+  time_mask_length: 10
+  freq_mask_length: 4
+  n_mfcc: ${speaker.pipeline.mfcc.n_mfcc}
+
+mfcc:
+  _target_: src.data.pipeline.audio_features.MfccFeaturePreprocessor
+  n_mfcc: 80
+
+normalizer:
+  _target_: src.data.pipeline.input_normalisation.InputNormalizer2D
+  normalize_over_channels: true

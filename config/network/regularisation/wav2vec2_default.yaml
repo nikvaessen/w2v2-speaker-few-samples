@@ -1,0 +1,21 @@
+_target_: src.networks.wav2vec2_components.base_components.Wav2Vec2NetworkRegularisationConfig
+
+# probability of regularization techniques during training
+# dropout
+activation_dropout: 0.1  # in feed-forward module of transformer layer
+attention_dropout: 0.1  # in attention module of transformer layer
+feat_proj_dropout: 0.1  # in feature projection module
+hidden_dropout: 0.1  # between residual connections in transformer layer
+final_dropout: 0.05  # on input to final classification layer
+
+# layer skip in transformer
+layerdrop: 0.1
+
+# specaugment
+# feature
+mask_feature_length: 64
+mask_feature_prob: 0.1
+
+# time
+mask_time_length: 10
+mask_time_prob: 0.50

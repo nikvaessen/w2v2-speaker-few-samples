@@ -1,0 +1,38 @@
+['/ceph/das-scratch/users/nvaessen/data/w2v2-speaker-few-samples/shards_tiny_few/train/train_shard_000004.tar.gz', '/ceph/das-scratch/users/nvaessen/data/w2v2-speaker-few-samples/shards_tiny_few/train/train_shard_000005.tar.gz', '/ceph/das-scratch/users/nvaessen/data/w2v2-speaker-few-samples/shards_tiny_few/train/train_shard_000000.tar.gz', '/ceph/das-scratch/users/nvaessen/data/w2v2-speaker-few-samples/shards_tiny_few/train/train_shard_000008.tar.gz', '/ceph/das-scratch/users/nvaessen/data/w2v2-speaker-few-samples/shards_tiny_few/train/train_shard_000002.tar.gz', '/ceph/das-scratch/users/nvaessen/data/w2v2-speaker-few-samples/shards_tiny_few/train/train_shard_000007.tar.gz', '/ceph/das-scratch/users/nvaessen/data/w2v2-speaker-few-samples/shards_tiny_few/train/train_shard_000006.tar.gz', '/ceph/das-scratch/users/nvaessen/data/w2v2-speaker-few-samples/shards_tiny_few/train/train_shard_000009.tar.gz', '/ceph/das-scratch/users/nvaessen/data/w2v2-speaker-few-samples/shards_tiny_few/train/train_shard_000001.tar.gz', '/ceph/das-scratch/users/nvaessen/data/w2v2-speaker-few-samples/shards_tiny_few/train/train_shard_000003.tar.gz']
+num files
+49400
+num speakers
+100
+sessions
+total: 5066
+count    100.000000
+mean      50.660000
+std       12.983455
+min       22.000000
+25%       42.000000
+50%       50.500000
+75%       60.000000
+max       87.000000
+dtype: float64
+utterances
+total: 49400
+count    5066.000000
+mean        9.751283
+std        13.546852
+min         1.000000
+25%         3.000000
+50%         6.000000
+75%        12.000000
+max       264.000000
+dtype: float64
+audio length
+count    49400.000000
+mean         8.223386
+std          5.423201
+min          3.968000
+25%          4.928000
+50%          6.464000
+75%          9.408000
+max        113.152000
+dtype: float64
+total duration in seconds: 406235.264000005

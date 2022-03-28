@@ -1,0 +1,35 @@
+train_pipeline:
+  - normalizer
+  - selector_train
+
+val_pipeline:
+  - normalizer
+  - selector_val
+
+test_pipeline:
+  # assume batch size of 1 due to no selector (and therefore tensors have
+  # different dimensions and cannot be collated without padding
+  - normalizer
+  - selector_test
+
+selector_train:
+  _target_: src.data.pipeline.random_chunks.AudioChunkSelector
+  # one of 'start', 'end', 'random', 'random_contiguous', 'contiguous'
+  selection_strategy: random
+  desired_chunk_length_sec: 3
+
+selector_val:
+  _target_: src.data.pipeline.random_chunks.AudioChunkSelector
+  # one of 'start', 'end', 'random', 'random_contiguous'
+  selection_strategy: start
+  desired_chunk_length_sec: ${speaker.pipeline.selector_train.desired_chunk_length_sec}
+
+selector_test:
+  _target_: src.data.pipeline.random_chunks.AudioChunkSelector
+  # one of 'start', 'end', 'random', 'random_contiguous'
+  selection_strategy: start
+  desired_chunk_length_sec: 100_000 # basically whole file
+
+normalizer:
+  _target_: src.data.pipeline.input_normalisation.InputNormalizer2D
+  normalize_over_channels: false

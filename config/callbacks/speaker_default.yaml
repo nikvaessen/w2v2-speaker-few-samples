@@ -1,0 +1,39 @@
+to_add:
+  - lr_monitor
+  - ram_monitor
+  - checkpoint
+  - pbar
+  - summary
+
+# progress bar
+pbar:
+  _target_: pytorch_lightning.callbacks.TQDMProgressBar
+  refresh_rate: 100
+
+# model summary
+summary:
+  _target_: pytorch_lightning.callbacks.ModelSummary
+  max_depth: 5
+
+# keep track of learning rate in logger
+lr_monitor:
+  _target_: pytorch_lightning.callbacks.LearningRateMonitor
+
+ram_monitor:
+  _target_: src.callbacks.memory_monitor.RamMemoryMonitor
+  frequency: 100
+
+# save model checkpoint of weights with best validation performance
+checkpoint:
+  _target_: pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint
+  monitor: val_eer
+  save_top_k: 1
+  mode: min
+  filename: 'epoch_{epoch:04d}.step_{step:09d}.val-eer_{val_eer:.4f}.best'
+  save_last: true
+  every_n_epochs: 1
+  save_on_train_epoch_end: false
+  auto_insert_metric_name: false
+  save_weights_only: true
+
+last_checkpoint_pattern: 'epoch_{epoch:04d}.step_{step:09d}.val-eer_{val_eer:.4f}.last'

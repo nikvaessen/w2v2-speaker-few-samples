@@ -1,0 +1,38 @@
+# @package _global_
+
+defaults:
+  - override /callbacks: speaker_default
+  - override /data: tiny_voxceleb_many_low
+  - override /speaker/pipeline: mfcc_specaugment_chunked
+  - override /speaker/dataloader: speaker
+  - override /network: ecapa
+  - override /network/regularisation: null
+  - override /optim/algo: adam
+  - override /optim/schedule: cyclic
+  - override /optim/loss: aam_softmax
+  - override /trainer: trainer
+
+trainer:
+  max_steps: 50_000
+  val_check_interval: 1.0
+  precision: 16
+
+speaker:
+  dataloader:
+    train_batch_size: 100
+  pipeline:
+    selector_train:
+        desired_chunk_length_sec: 2
+
+optim:
+  algo:
+    lr: 1e-3
+  schedule:
+    scheduler:
+      mode: triangular2
+      step_size_up: ${idivide:${trainer.max_steps}, 8}
+      step_size_down: ${idivide:${trainer.max_steps}, 8}
+      base_lr: 1e-8
+
+experiment_tag: tiny_many_low
+project_name: ecapa

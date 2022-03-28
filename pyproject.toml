@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "w2v2-speaker-few-samples"
+version = "0.1.0"
+description = ""
+authors = ["Nik Vaessen <nik.vaessen@ru.nl>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+tqdm = "^4.62.3"
+yaspin = "^2.1.0"
+click = "^8.0.3"
+pandas = "^1.4.0"
+webdataset = "0.1.103"
+python-dotenv = "^0.19.2"
+pytorch-lightning = "1.5.10"
+jupyterlab = "^3.2.9"
+seaborn = "^0.11.2"
+librosa = "^0.9.1"
+speechbrain = "^0.5.11"
+hydra-core = "^1.1.1"
+wandb = "^0.12.10"
+transformers = "^4.16.2"
+"hurry.filesize" = "^0.9"
+hydra-submitit-launcher = "^1.1.6"
+jupyter = "^1.0.0"
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

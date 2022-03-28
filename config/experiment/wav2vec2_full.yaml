@@ -1,0 +1,43 @@
+# @package _global_
+
+defaults:
+  - override /callbacks: speaker_default
+  - override /data: voxceleb2
+  - override /speaker/pipeline: wav_chunked
+  - override /speaker/dataloader: speaker
+  - override /network: wav2vec2
+  - override /network/regularisation: wav2vec2_default
+  - override /optim/algo: adam
+  - override /optim/schedule: cyclic
+  - override /optim/loss: aam_softmax
+  - override /trainer: trainer
+
+trainer:
+  max_steps: 50_000
+  val_check_interval: 3125
+  precision: 16
+
+network:
+  stat_pooling_type: mean
+  wav2vec_initially_frozen: true
+  num_frozen_steps: 12500
+
+speaker:
+  dataloader:
+    train_batch_size: 100
+  pipeline:
+    selector_train:
+        desired_chunk_length_sec: 2
+
+optim:
+  algo:
+    lr: 1e-3
+  schedule:
+    scheduler:
+      mode: triangular2
+      step_size_up: ${idivide:${trainer.max_steps}, 8}
+      step_size_down: ${idivide:${trainer.max_steps}, 8}
+      base_lr: 1e-8
+
+experiment_tag: vox2_full
+project_name: wav2vec2

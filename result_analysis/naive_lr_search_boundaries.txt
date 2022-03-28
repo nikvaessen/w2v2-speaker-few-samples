@@ -1,0 +1,30 @@
+x-vector:
+    tiny-few: 1e-2      optim.algo.lr=1.78e-3,3.16e-3,5.62e-3,1.78e-2,3.16e-2,5.62e-2
+   tiny-high: 1e-2      optim.algo.lr=1.78e-3,3.16e-3,5.62e-3,1.78e-2,3.16e-2,5.62e-2
+    tiny-low: 1e-4      optim.algo.lr=1.78e-5,3.16e-5,5.62e-5,1.78e-4,3.16e-4,5.62e-4
+        vox2: 1e-3      optim.algo.lr=1.78e-4,3.16e-4,5.62e-4,1.78e-3,3.16e-3,5.62e-3
+
+ecapa:
+    tiny-few: 1e-2      optim.algo.lr=1.78e-3,3.16e-3,5.62e-3,1.78e-2,3.16e-2,5.62e-2
+   tiny-high: 1e-2      optim.algo.lr=1.78e-3,3.16e-3,5.62e-3,1.78e-2,3.16e-2,5.62e-2
+    tiny-low: 1e-2      optim.algo.lr=1.78e-3,3.16e-3,5.62e-3,1.78e-2,3.16e-2,5.62e-2
+        vox2: 1e-2      optim.algo.lr=1.78e-3,3.16e-3,5.62e-3,1.78e-2,3.16e-2,5.62e-2
+
+wav2vec2:
+    tiny-few: 1e-5      optim.algo.lr=1.78e-6,3.16e-6,5.62e-6,1.78e-5,3.16e-5,5.62e-5
+   tiny-high: 1e-4      optim.algo.lr=1.78e-5,3.16e-5,5.62e-5,1.78e-4,3.16e-4,5.62e-4
+    tiny-low: 1e-4      optim.algo.lr=1.78e-5,3.16e-5,5.62e-5,1.78e-4,3.16e-4,5.62e-4
+        vox2: 1e-4      optim.algo.lr=1.78e-5,3.16e-5,5.62e-5,1.78e-4,3.16e-4,5.62e-4
+
+
+1e-5=
+optim.algo.lr=1.78e-6,3.16e-6,5.62e-6,1.78e-5,3.16e-5,5.62e-5
+
+1e-4
+optim.algo.lr=1.78e-5,3.16e-5,5.62e-5,1.78e-4,3.16e-4,5.62e-4
+
+1e-3
+optim.algo.lr=1.78e-4,3.16e-4,5.62e-4,1.78e-3,3.16e-3,5.62e-3
+
+1e-2
+optim.algo.lr=1.78e-3,3.16e-3,5.62e-3,1.78e-2,3.16e-2,5.62e-2
