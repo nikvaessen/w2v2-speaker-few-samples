@@ -140,6 +140,15 @@ You can now run `scripts/data/pipeline.sh` to:
 
 ## Experiments 
 
+The following section provides the commands to reproduce the experiments. 
+You can remove the `hydra/launcher=...` argument if you intend to run the experiment on a machine without SLURM. 
+If you do intend to use SLURM, you should edit `config/hydra/launcher/slurm.yaml` accordingly 
+(namely, the partition parameter probably doesn't make sense).
+
+If you do not have access to a GPU with 24GB of VRAM, you can reduce the batch size by e.g. a factor 2, 
+(See `config/speaker/dataloader/speaker.yaml`) and add, e.g. `trainer.accumulate_grad_batches=2` to the command.
+
+
 ### X-vector
 
 #### Initial naive hyperparameter search grid:
