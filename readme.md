@@ -2,7 +2,20 @@
 
 This repository is used for researching the effectiveness of wav2vec2 
 for speaker recognition in low-resource data conditions. 
-See the (pre-print) paper at: ...
+
+See the (pre-print) paper at: https://arxiv.org/abs/2203.14688
+
+You can download the data here: https://surfdrive.surf.nl/files/index.php/s/497wbcet5SvMTUe
+
+It includes:
+
+1. tiny-few-speakers: as `shards_tiny_few.tar.gz`
+2. tiny-few-sessions: as `shards_tiny_many_low.tar.gz`
+3. tiny-many-sessions: as `shards_tiny_many_high.tar.gz`
+4. vox2: needs to be downloaded manually, see instructions below
+5. meta folder: as `meta.tar.gz`
+
+See the "Data preparation" section below for instructions for reproducing the data.
 
 ## Setting up 
 
@@ -38,7 +51,7 @@ Note: all the data (zip files, extracted files, data shards) will take approxima
 
 ```
 ${DATA_FOLDER}
-├── archives -> ../voxceleb/
+├── archives
 ├── meta
 │   ├── iden_split.txt
 │   ├── list_test_all2.txt
@@ -61,8 +74,13 @@ ${DATA_FOLDER}
 │   └── train
 └── voxceleb2
     └── train
-
 ```
+
+### Downloading pre-processed data
+
+If you don't want to manually go through the preprocessing pipeline, you can download our version of the data here: 
+
+We provide the `shards_*` and `meta` folder. Make sure to place the data at `$DATA_FOLDER` location, as specified in your `.env` file.
 
 ### Downloading voxceleb1 and voxceleb2
 
@@ -79,25 +97,46 @@ You should end up 4 zip files, which are to be placed in `$DATA_FOLDER/archives`
 
 ### Converting voxceleb2 to wav format
 
+We need to convert the voxceleb2 to wav data before we can continue. We will convert the
+`vox2_dev_aac.zip` and `vox2_test_aac.zip` zip files to respectively `vox2_dev_wav.zip` and `vox2_test_wav.zip` with the script below:
 
+```bash
+source .env
+
+PDIR=$PWD # folder where this README is located
+D=$DATA_FOLDER # location of data - should be set in .env file
+T=$TEMP_FOLDER # location of temporary disk location where data will be unzipped
+WORKERS=$(nproc --all) # number of CPUs available 
+
+# extract voxceleb 2 data
+cd $D
+mkdir -p $T/train $T/test
+
+unzip archives/vox2_dev_aac.zip -d $T/train
+unzip archives/vox2_test_aac.zip -d $T/test
+
+# run the conversion script
+cd $PDIR
+poetry run python scripts/data/voxceleb2_convert_to_wav.py $T --num_workers $WORKERS
+
+# rezip the converted data
+cd $T/train
+zip $D/archives/vox2_dev_wav.zip wav -r
+
+cd $T/test
+zip $D/archives/vox2_test_wav.zip wav -r
+
+# delete the unzipped .m4a files
+rm -r $T/train $T/test
+```
 
 ### creating datasets
 
-#### full voxceleb2
+You can now run `scripts/data/pipeline.sh` to:
 
-...
-
-#### tiny-shallow (many speakers, few files)
-
-...
-
-#### tiny-deep (few speakers, many files)
-
-...
-
-#### evaluation set(s)
-
-...
+1. Create the validation set
+2. Create the three tiny dataset splits (and the original vox2 split)
+3. Create the evaluation sets and trial lists
 
 ## Experiments 
 
@@ -220,7 +259,7 @@ hydra/launcher=slurm_11vram hydra.launcher.array_parallelism=1
 
 ### ECAPA-TDNN
 
-Initial hyperparameter search:
+#### Initial naive hyperparameter search grid:
 
 ```
 python run.py -m \
