@@ -4,6 +4,9 @@ library(patchwork)
 library(scales)
 library(ggthemes)
 library(egg)
+library(extrafont)
+
+font_install('fontcm')
 
 # read data
 df = read.csv('plot_four.csv')
@@ -47,10 +50,12 @@ x_axis = scale_x_log10(
   name='learning rate', 
   breaks = breaks_log10,
   minor_breaks = breaks_5log10,
+  labels = label_math(expr = 10^.x, format = log10)
 )
 
 # y_axis
-y_axis =  scale_y_continuous(limits = c(0, 0.5), name="EER")
+y_axis =  scale_y_continuous(limits = c(0, 1), name="EER", labels = label_percent(accuracy=1))
+y_lim = coord_cartesian(ylim=c(0, 0.25))
 
 # the plots
 vox2 = (
@@ -64,7 +69,7 @@ vox2 = (
   + geom_point()
   + geom_line()
   + x_axis
-  + y_axis 
+  + y_axis + y_lim
   + scale_colour_colorblind(
     name='network',
     breaks=custom_legend_order,
@@ -88,7 +93,7 @@ tiny_spk = (
   + geom_point()
   + geom_line()
   + x_axis
-  + y_axis
+  + y_axis + y_lim
   + scale_colour_colorblind(
     name='network',
     breaks=custom_legend_order,
@@ -112,7 +117,7 @@ tiny_few = (
   + geom_point()
   + geom_line()
   + x_axis
-  + y_axis
+  + y_axis + y_lim
   + scale_colour_colorblind(
     name='network',
     breaks=custom_legend_order,
@@ -136,7 +141,7 @@ tiny_many = (
   + geom_point()
   + geom_line()
   + x_axis
-  + y_axis
+  + y_axis + y_lim
   + scale_colour_colorblind(
     name='network',
     breaks=custom_legend_order,
@@ -156,7 +161,10 @@ g = (
   & theme(
     legend.direction = "horizontal",
     legend.position = "bottom",
-    plot.margin = unit(c(0.1,0.5,0.1,0.1), "cm")
+    plot.margin = unit(c(0.1,0.5,0.1,0.1), "cm"),
+    text         = element_text(family="CM Roman"),
+    axis.title.x = element_text(family="CM Roman"),
+    axis.title.y = element_text(family= "CM Roman")
   )
 )
 
@@ -164,7 +172,7 @@ g
 
 ggsave(
   file="plot_four_thesis.pdf",
-  device = cairo_pdf,
+  device=cairo_pdf,
   width = 130,
   height = 180,
   units = "mm"
