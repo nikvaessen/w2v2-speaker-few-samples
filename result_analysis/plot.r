@@ -28,7 +28,7 @@ df_many = df[df$data == "tiny-many-sessions",]
 df_few = df[df$data == "tiny-few-sessions",]
 
 # theme
-theme = theme_minimal()
+theme = theme_linedraw()
 
 # legend order
 custom_legend_order <- c(
