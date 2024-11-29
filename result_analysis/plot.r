@@ -27,6 +27,9 @@ df_spk = df[df$data == "tiny-few-speakers",]
 df_many = df[df$data == "tiny-many-sessions",]
 df_few = df[df$data == "tiny-few-sessions",]
 
+# theme
+theme = theme_minimal()
+
 # legend order
 custom_legend_order <- c(
   "X-vector",
@@ -83,7 +86,7 @@ vox2 = (
     values=seq(0,6)
   )  
   + ggtitle('vox2')
-  + theme_bw()
+  + theme
 )
 
 tiny_spk = (
@@ -109,7 +112,7 @@ tiny_spk = (
     values=seq(0,6)
   ) 
   + ggtitle('few-speakers')
-  + theme_bw()
+  + theme
 )
 
 tiny_few = (
@@ -135,7 +138,7 @@ tiny_few = (
     values=seq(0,6)
   ) 
   + ggtitle('few-sessions')
-  + theme_bw()
+  + theme
 )
 
 tiny_many = (
@@ -161,7 +164,7 @@ tiny_many = (
     values=seq(0,6)
   ) 
   + ggtitle('many-sessions')
-  + theme_bw()
+  + theme
 )
 
 g = (
