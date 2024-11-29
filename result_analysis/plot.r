@@ -6,7 +6,9 @@ library(ggthemes)
 library(egg)
 library(extrafont)
 
-font_install('fontcm')
+# font_install('fontcm')
+font_import()
+loadfonts()
 
 # read data
 df = read.csv('plot_four.csv')
@@ -79,7 +81,9 @@ vox2 = (
     name='network',
     breaks=custom_legend_order,
     values=seq(0,6)
-  )  + ggtitle('vox2')
+  )  
+  + ggtitle('vox2')
+  + theme_bw()
 )
 
 tiny_spk = (
@@ -103,7 +107,9 @@ tiny_spk = (
     name='network',
     breaks=custom_legend_order,
     values=seq(0,6)
-  )  + ggtitle('few-speakers')
+  ) 
+  + ggtitle('few-speakers')
+  + theme_bw()
 )
 
 tiny_few = (
@@ -127,7 +133,9 @@ tiny_few = (
     name='network',
     breaks=custom_legend_order,
     values=seq(0,6)
-  )  + ggtitle('few-sessions')
+  ) 
+  + ggtitle('few-sessions')
+  + theme_bw()
 )
 
 tiny_many = (
@@ -151,7 +159,9 @@ tiny_many = (
     name='network',
     breaks=custom_legend_order,
     values=seq(0,6)
-  )  + ggtitle('many-sessions')
+  ) 
+  + ggtitle('many-sessions')
+  + theme_bw()
 )
 
 g = (
@@ -162,7 +172,7 @@ g = (
     legend.direction = "horizontal",
     legend.position = "bottom",
     plot.margin = unit(c(0.1,0.5,0.1,0.1), "cm"),
-    text         = element_text(family="CM Roman"),
+    text         = element_text(family="mono"),
     axis.title.x = element_text(family="CM Roman"),
     axis.title.y = element_text(family= "CM Roman")
   )
@@ -172,8 +182,9 @@ g
 
 ggsave(
   file="plot_four_thesis.pdf",
-  device=cairo_pdf,
+  #device=cairo_pdf,
   width = 130,
   height = 180,
   units = "mm"
 )
+embed_fonts("plot_four_thesis.pdf", outfile="plot_four_thesis.pdf")
