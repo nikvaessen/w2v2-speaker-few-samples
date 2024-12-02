@@ -28,7 +28,7 @@ df_many = df[df$data == "tiny-many-sessions",]
 df_few = df[df$data == "tiny-few-sessions",]
 
 # theme
-theme = theme_linedraw()
+style = theme_linedraw()
 
 # legend order
 custom_legend_order <- c(
@@ -86,7 +86,7 @@ vox2 = (
     values=seq(0,6)
   )  
   + ggtitle('vox2')
-  + theme
+  + style
 )
 
 tiny_spk = (
@@ -112,7 +112,7 @@ tiny_spk = (
     values=seq(0,6)
   ) 
   + ggtitle('few-speakers')
-  + theme
+  + style
 )
 
 tiny_few = (
@@ -138,7 +138,7 @@ tiny_few = (
     values=seq(0,6)
   ) 
   + ggtitle('few-sessions')
-  + theme
+  + style
 )
 
 tiny_many = (
@@ -164,7 +164,7 @@ tiny_many = (
     values=seq(0,6)
   ) 
   + ggtitle('many-sessions')
-  + theme
+  + style
 )
 
 g = (
